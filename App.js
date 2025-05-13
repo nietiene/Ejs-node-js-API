@@ -6,7 +6,11 @@ const userRoutes = require("./router.js");
 const App = express();
 const session = require("express-session");
 
-
+App.use(session({
+    secret: 'factorise@123',
+    resave: false,
+    saveUninitialized: true,
+}));
 // Initialize Middleware
 App.use(bodyParser.json());
 App.use(bodyParser.urlencoded({extended: true}));
