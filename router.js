@@ -38,9 +38,9 @@ router.get('/add', (req, res) => {
 
 // Add New User
 router.post('/add', (req, res) => {
-    const {name, password} = req.body;
-    const sqlInsert = `INSERT INTO user(name, password) VALUES(?, ?)`;
-    connection.query(sqlInsert, [name, password], (err) => {
+    const {name, password, role} = req.body;
+    const sqlInsert = `INSERT INTO user(name, password, role) VALUES(?, ?, ?)`;
+    connection.query(sqlInsert, [name, password, role], (err) => {
        
         if (!err) {
             res.redirect("/");
