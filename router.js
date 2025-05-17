@@ -104,7 +104,7 @@ router.get('/user/:id', isUser, (req, res) => {
    const sql = "SELECT * FROM user WHERE id = ?";
    connection.query(sql, [id], (err, data) => {
     if (err) {
-        res.send("ERROR:", err.message);
+       return res.status(500).send("ERROR:" + err.message);
     }
   
      res.render("userPage", {
@@ -131,13 +131,21 @@ router.get('/update/:id', (req, res) => {
 router.post('/update/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const { name, password } = req.body;
-    const sql = "UPDATE user SET name = ?, password = ?";
+    const sql = "UPDATE user SET name = ?, password = ? WHERE id = ?";
     connection.query(sql, [name, password, id], (err) => {
-        if (!err) {
-            res.render('userPage');
-        } else {
-            res.status(500).send("Not Updated try again", err);
+        if (err) {
+               res.status(500).send("Not Updated try again", err);
         }
+       const fetchDataAgain = "SELECT * FROM user WHERE id = ?";
+       connection.query(fetchDataAgain, [id], (err, data) => {
+        if (err) {
+            return res.status(500).send("Error in fetching data: ", err.message);
+        } 
+        res.render("userPage", {
+            user: data,
+            sessionUser: req.session.user
+        })
+       })
     })
 })
 

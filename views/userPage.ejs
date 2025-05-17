@@ -6,8 +6,7 @@
     <title>user page</title>
 </head>
 <body>
-   
-    <h1>Welcome <%= sessionUser.name %> (<%= sessionUser.role %>)</h1>
+  
     <a href="/logout">Logout</a>
     <ul>
         <% user.forEach((u) => { %>
@@ -15,7 +14,7 @@
            <li>Name: <%= u.name %></li>
            <li>Password: <%= u.password %></li>
              <a href="/update/<%= u.id %>">Edit Your Account </a> |
-             <a href="/dlt/<%= u.id %>"  onclick="return confirm('Are You Sure You Want to delete your account??')">Delete</a> 
+             <a href="/dtl/<%= u.id %>"  onclick="return confirm('Are You Sure You Want to delete your account??')">Delete</a> 
         <% }) %>
     </ul>
   
