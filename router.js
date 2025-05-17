@@ -42,7 +42,7 @@ router.get('/login', (req, res) => {
 // handle login login
 router.post('/login', (req, res) => {
     const { name, password } = req.body;
-    const sqlLogin = "SELECT * FROM user WHERE namr = ? AND password = ?";
+    const sqlLogin = "SELECT * FROM user WHERE name = ? AND password = ?";
     connection.query(sqlLogin, [ name, password ], (err, result) => {
         if (err) return res.status(500).send("Login error");
         if (result.length === 1) {
