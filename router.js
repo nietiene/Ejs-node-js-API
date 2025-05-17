@@ -169,8 +169,17 @@ router.get('/register', (req, res) => {
 
 // handle register login
 router.post('/register', (req, res) => {
-    
-})
+    const { name, password } = req.body;
+    const sql = "INSERT INTO user(name, password) VALUES(?,?)";
+
+    connection.query(sql, [name, password], (err) => {
+        if (err) {
+            res.status(500).send("Not registered try again !!", err);
+        } 
+
+     res.redirect('/login');
+    })
+});
 // Add Data
 router.get('/add', isAdmin, isAuthorized, (req, res) => {
     res.render("addForm");
