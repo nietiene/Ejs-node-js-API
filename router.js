@@ -1,7 +1,7 @@
 const { resolveInclude } = require("ejs");
 const express = require("express");
 const mysql = require("mysql2");
-const { session } = require("passport");
+const session = require("express-session");
 require("dotenv").config();
 const router = express.Router();
 
@@ -33,6 +33,14 @@ connection.connect((err) => {
         return next();
     }
     res.status(403).send("Access denied (admin only)");
+ }
+
+ function isUser(req, res, next) {
+    if (req.session.user && req.session.role === 'user') {
+        return next();
+    } else {
+        res.render('user');
+    }
  }
 // login
 router.get('/login', (req, res) => {
@@ -66,7 +74,7 @@ router.get('/logout', (req, res) => {
     res.redirect('/login');
 })
 // Get All users
-router.get('/', isAuthorized, isAdmin,(req, res) => {
+router.get('/', isAuthorized, isAdmin, isUser,(req, res) => {
     const sqlSelect = "SELECT * FROM user";
     connection.query(sqlSelect, (err, result) => {
         
@@ -80,7 +88,7 @@ router.get('/', isAuthorized, isAdmin,(req, res) => {
 
 // get page from user
 
-router.get('/user/:id', (req, res) => {
+router.get('/user/:id', isUser, isAdmin, (req, res) => {
    const id = parseInt(req.params.id);
    const sql = "SELECT * FROM user WHERE id = ?";
    connection.query(sql, id, (err, data) => {
@@ -98,7 +106,7 @@ router.get('/add', isAuthorized, (req, res) => {
 });
 
 // Add New User
-router.post('/add', isAuthorized ,(req, res) => {
+router.post('/add', isAuthorized, isAdmin, (req, res) => {
     const {name, password, role} = req.body;
     const sqlInsert = `INSERT INTO user(name, password, role) VALUES(?, ?, ?)`;
     connection.query(sqlInsert, [name, password, role], (err) => {
@@ -112,7 +120,7 @@ router.post('/add', isAuthorized ,(req, res) => {
 });
 
 // Update user 
-router.get('/edit/:id' , isAuthorized, (req, res) => {
+router.get('/edit/:id' , isAuthorized, isAdmin,(req, res) => {
       const id = parseInt(req.params.id);
       const user = req.session.user;
       const select= `SELECT * FROM user WHERE id = ?`;
@@ -127,7 +135,7 @@ router.get('/edit/:id' , isAuthorized, (req, res) => {
     
 });
 
-router.post('/edit/:id', isAuthorized,(req, res) => {
+router.post('/edit/:id', isAuthorized, isAdmin,(req, res) => {
 
     const id = parseInt(req.params.id);
     const {name, password} = req.body;
@@ -145,7 +153,7 @@ router.post('/edit/:id', isAuthorized,(req, res) => {
     });
 });
 
-router.get('/delete/:id', isAuthorized,(req, res) => {
+router.get('/delete/:id', isAuthorized, isAdmin,(req, res) => {
     const id = parseInt(req.params.id);
     const deleteSql = `DELETE FROM user WHERE id = ?`;
     connection.query(deleteSql, id, (err) => {
