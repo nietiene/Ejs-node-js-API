@@ -62,11 +62,11 @@ router.post('/login', (req, res) => {
 
 // logout 
 router.get('/logout', (req, res) => {
-    res.session.destroy();
+    req.session.destroy();
     res.redirect('/login');
 })
 // Get All users
-router.get('/', isAuthorized, (req, res) => {
+router.get('/', isAuthorized, isAdmin,(req, res) => {
     const sqlSelect = "SELECT * FROM user";
     connection.query(sqlSelect, (err, result) => {
         
@@ -78,6 +78,19 @@ router.get('/', isAuthorized, (req, res) => {
     });
 });
 
+// get page from user
+
+router.get('/user/:id', (req, res) => {
+   const id = parseInt(req.params.id);
+   const sql = "SELECT * FROM user WHERE id = ?";
+   connection.query(sql, id, (err, data) => {
+    if (err) {
+        res.send("ERROR:", err.message);
+    } else {
+        res.render('userPage', {user: data, sessionUser: req.session.id});
+    }
+   });
+});
 // Add Data
 
 router.get('/add', isAuthorized, (req, res) => {
