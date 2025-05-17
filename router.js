@@ -1,8 +1,5 @@
-const { resolveInclude } = require("ejs");
 const express = require("express");
 const mysql = require("mysql2");
-const session = require("express-session");
-const { parse } = require("dotenv");
 require("dotenv").config();
 const router = express.Router();
 

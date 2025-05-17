@@ -11,6 +11,11 @@ App.use(session({
     resave: false,
     saveUninitialized: true,
 }));
+
+App.use(function(req, res, next) {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
 // Initialize Middleware
 App.use(bodyParser.json());
 App.use(bodyParser.urlencoded({extended: true}));
