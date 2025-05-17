@@ -149,6 +149,28 @@ router.post('/update/:id', (req, res) => {
     })
 })
 
+// make user delete only his account
+router.get('/dlt/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const sql = "DELETE FROM user WHERE id = ?";
+
+    connection.query(sql, [id], (err) => {
+        if (err) {
+            res.status(500).send("User not deleted");
+        }
+        res.render("register");
+    })
+});
+
+// register
+router.get('/register', (req, res) => {
+    res.render("register");
+});
+
+// handle register login
+router.post('/register', (req, res) => {
+    
+})
 // Add Data
 router.get('/add', isAdmin, isAuthorized, (req, res) => {
     res.render("addForm");
