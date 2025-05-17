@@ -61,10 +61,14 @@ router.post('/login', (req, res) => {
                 role: user.role,
             };
 
-            if (req.session.role === 'admin' ){
+            if (user.role === 'admin' ){
                 res.redirect('/');
             } else {
-                res.render('userPage');
+               
+                res.render('userPage', {
+                     user: [user],
+                     sessionUser: req.session.user  
+                });
             }
            
         } else {
