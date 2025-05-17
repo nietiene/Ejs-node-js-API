@@ -2,6 +2,7 @@ const { resolveInclude } = require("ejs");
 const express = require("express");
 const mysql = require("mysql2");
 const session = require("express-session");
+const { parse } = require("dotenv");
 require("dotenv").config();
 const router = express.Router();
 
@@ -29,7 +30,7 @@ connection.connect((err) => {
 
  // IsAdmin logged in 
  function isAdmin(req, res, next) {
-    if (req.session.user && req.session.role === 'admin') {
+    if (req.session.user && req.session.user.role === 'admin') {
         return next();
     }
     res.status(403).send("Access denied (admin only)");
@@ -98,22 +99,49 @@ router.get('/', isAuthorized, isAdmin,(req, res) => {
 
 // get page from user
 
-router.get('/user/:id', isAdmin, (req, res) => {
+router.get('/user/:id', isUser, (req, res) => {
    const id = parseInt(req.params.id);
    const sql = "SELECT * FROM user WHERE id = ?";
    connection.query(sql, [id], (err, data) => {
     if (err) {
         res.send("ERROR:", err.message);
     }
-    const selectedUser = data[0];
+  
      res.render("userPage", {
         user: data,
         sessionUser: req.session.user
      })
    });
 });
-// Add Data
 
+// get form to update
+router.get('/update/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const sql = "SELECT * FROM user WHERE id = ?";
+    connection.query(sql, [id], (err, data)  => {
+        if (err) {
+            res.status(403).send("Database error");
+        } else {
+            res.render('update', {user: data[0]});
+        }
+    });
+});
+
+// perform update logic
+router.post('/update/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { name, password } = req.body;
+    const sql = "UPDATE user SET name = ?, password = ?";
+    connection.query(sql, [name, password, id], (err) => {
+        if (!err) {
+            res.render('userPage');
+        } else {
+            res.status(500).send("Not Updated try again", err);
+        }
+    })
+})
+
+// Add Data
 router.get('/add', isAdmin, isAuthorized, (req, res) => {
     res.render("addForm");
 });
@@ -176,7 +204,7 @@ router.get('/delete/:id', isAuthorized, isAdmin,(req, res) => {
         } else {
             res.status(200).redirect('/');
         }
-    })
+    });
 });
 
 module.exports = router;

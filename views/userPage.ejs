@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>user page</title>
 </head>
 <body>
+   
     <h1>Welcome <%= sessionUser.name %> (<%= sessionUser.role %>)</h1>
+    <a href="/logout">Logout</a>
     <ul>
         <% user.forEach((u) => { %>
            <li>Id: <%= u.id %></li>
            <li>Name: <%= u.name %></li>
            <li>Password: <%= u.password %></li>
+             <a href="/update/<%= u.id %>">Edit Your Account </a> |
+             <a href="/dlt/<%= u.id %>"  onclick="return confirm('Are You Sure You Want to delete your account??')">Delete</a> 
         <% }) %>
     </ul>
+  
 </body>
 </html>
