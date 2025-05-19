@@ -14,7 +14,7 @@ App.use(session({
 }));
 
 App.use(cors({
-  origin: "http://localhost:3000",
+  origin: "http://localhost:5173/",
   credentials: true
 }));
 App.use(function(req, res, next) {
@@ -25,6 +25,7 @@ App.use(function(req, res, next) {
 App.use(bodyParser.json());
 App.use(bodyParser.urlencoded({extended: true}));
 App.set("view engine", "ejs");
+App.use(express.json());
 App.set("views", path.join(__dirname, "views"));
 App.use("/", userRoutes);
 
