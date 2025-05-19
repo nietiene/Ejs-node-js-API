@@ -80,7 +80,7 @@ router.post('/login', (req, res) => {
 router.get('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/login');
-})
+});
 // Get All users
 router.get('/', isAuthorized, isAdmin,(req, res) => {
     const sqlSelect = "SELECT * FROM user";

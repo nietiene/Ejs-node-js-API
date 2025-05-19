@@ -4,6 +4,7 @@ const path = require("path");
 require("dotenv").config();
 const userRoutes = require("./router.js");
 const App = express();
+const cors = require("cors");
 const session = require("express-session");
 
 App.use(session({
@@ -12,6 +13,10 @@ App.use(session({
     saveUninitialized: true,
 }));
 
+App.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
 App.use(function(req, res, next) {
   res.set('Cache-Control', 'no-store');
   next();
