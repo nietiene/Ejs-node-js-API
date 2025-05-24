@@ -13,31 +13,32 @@
           <a href="/add" class="bg-green-500 px-4 p-2 py-2">Add New</a>
           <a href="/logout" class="bg-red-500 p-2 px-4">logout</a>
     </div>
-    <table border="1" class="">
-        <thead class="bg-green-500 border ">
+    <table border="1" class="w-full border border-green-300 text-center text-sm">
+        <thead class="bg-green-500  text-white">
          <tr>
-           <th>Id</th>
-           <th>Name</th>
-           <th>Password</th>
-           <th colspan="2">Operation</th>
+           <th class="border border-green-300">Id</th>
+           <th class="border border-green-300">Name</th>
+           <th class="border border-green-300">Password</th>
+           <th colspan="2" class="border border-green-300">Operation</th>
          </tr>      
         </thead> 
+        <tbody class="bg-white text-black">
         <% user.forEach(user => { %>
             <tr>
-              <td><%= user.id %></td>
-              <td><%= user.name %></td>
-              <td><%= user.password %></td>
-              <td>
+              <td class="p-2 border border-green-200"><%= user.id %></td>
+              <td class="p-2 border border-green-200"><%= user.name %></td>
+              <td class="p-2 border border-green-200"><%= user.password %></td>
+              <td class="p-2 border border-green-200">
                <% if (sessionUser.role === 'admin' || sessionUser.id === user.id) { %>
                 <a href="/edit/<%= user.id %>">Edit</a>
                 <% } %>
 
                 <% if (sessionUser.role === 'admin') { %>
-                    <td><a href="/delete/<%= user.id %>">Delete</a></td>
+                    <td><a href="/delete/<%= user.id %>" class="p-2 border border-red-600">Delete</a></td>
                <% } %>
             </td>
             </tr>
-
+        </tbody>
         <% }) %>
 
     </table>
