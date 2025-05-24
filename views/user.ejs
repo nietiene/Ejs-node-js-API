@@ -4,18 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Of Users</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Welcome <%= sessionUser.name %> (<%= sessionUser.role %>)</h1>
-    <a href="/logout">logout</a>
-    <a href="/add">Add New</a>
-    <table border="1">
-        <tr>
+<body class="max-h-screen bg-green-100p-8">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-green-600 mb-5 text-center text-2xl font-semibold">Welcome <%= sessionUser.name %> (<%= sessionUser.role %>)</h1>
+        <div class="flex justify-between items-center mb-4">
+          <a href="/add" class="bg-green-500 px-4 p-2 py-2">Add New</a>
+          <a href="/logout" class="bg-red-500 p-2 px-4">logout</a>
+    </div>
+    <table border="1" class="">
+        <thead class="bg-green-500 border ">
+         <tr>
            <th>Id</th>
            <th>Name</th>
            <th>Password</th>
            <th colspan="2">Operation</th>
-        </tr>       
+         </tr>      
+        </thead> 
         <% user.forEach(user => { %>
             <tr>
               <td><%= user.id %></td>
@@ -35,5 +41,6 @@
         <% }) %>
 
     </table>
+</div>
 </body>
 </html>
