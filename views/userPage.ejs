@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>user page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  
-    <a href="/logout">Logout</a>
-    <ul>
-        <% user.forEach((u) => { %>
-           <li>Id: <%= u.id %></li>
-           <li>Name: <%= u.name %></li>
-           <li>Password: <%= u.password %></li>
-             <a href="/update/<%= u.id %>">Edit Your Account </a> |
+<body class="max-h-screen text-white bg-green-600 justify-center items-center">
+  <div class="bg-green-200 text-green-900 p-6 rounded-lg shadow-lg w-full max-w-md">
+    <div class="flex justify-end mb-4">
+      <a href="/logout" >Logout</a>
+         <ul >
+          <% user.forEach((u) => { %>
+             <li>Id:</strong><%= u.id %></li>
+             <li>Name: <%= u.name %></li>
+             <li>Password: <%= u.password %></li>
+             <a href="/update/<%= u.id %>" class="bg-green-400 py-4 px-1">Edit Your Account </a> |
              <a href="/dlt/<%= u.id %>"  onclick="return confirm('Are You Sure You Want to delete your account??')">Delete</a> 
         <% }) %>
     </ul>
   
+    </div>
+
+  </div>
+   
 </body>
 </html>
