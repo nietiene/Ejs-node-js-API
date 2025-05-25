@@ -7,11 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="max-h-screen flex items-center justify-center">
-    <form action="/login" method="post" class="">
-        <h2>Login</h2>
-        <input type="text" name="name" placeholder="Username" required> <br>
-        <input type="password" name="password" placeholder="Password" required> <br>
-        <button type="submit"> Login</button> 
+    <form action="/login" method="post" class="bg-green-200 p-8 rounded-lg w-full max-w-md shadow-lg">
+        <h2 class="text-2x; font-bold text-center text-green-600 mb-6">Login</h2>
+
+        <div class="mb-4">
+          <input type="text" name="name" placeholder="Username" required
+          class="w-full border border-gray-300 rounded focus:ouline-none focus:ring-2 focus:ring-green-400">
+        </div>
+        <div class="mb-4">
+          <input type="password" name="password" placeholder="Password" required
+          class="w-full border border-gray-300 rounded focus:ouline-none focus:ring-2 focus:ring-green-400"> 
+         </div>
+        <button type="submit"
+        class="w-full bg-green-400 hover:bg-green-600 text-white py-5 rounded transition duration-200"> Login</button> 
         <p>Dont you have account??</p><a href="/register">Sign In</a>
     </form>
 </body>
