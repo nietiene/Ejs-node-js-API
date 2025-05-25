@@ -9,11 +9,15 @@
 <body class="max-h-screen flex items-center justify-center bg-green-100">
     <form action="/register" method="POST" class="bg-green-200 p-8 rounded-lg w-full max-w-md shadow-lg">
         <h2 class="text-2x; font-bold text-center text-green-600 mb-6">Create Account</h2>
-        <label for="">Name</label>
-        <input type="text" name="name" placeholder="Enter name"> <br>
-        <label for="">Password</label>
-        <input type="password" name="password" placeholder="Enter password"> <br>
-
+        <div class="mb-4">
+           <label class="block text-green-800 mb-1">Name</label>
+           <input type="text" name="name" placeholder="Enter name"
+           class="w-full px-5 py-2 border border-gray-300 rounded focus:outline-none focus:ring-green-400">
+        </div>
+        <div class="mb-6">
+          <label class="">Password</label>
+          <input type="password" name="password" placeholder="Enter password"> <br> 
+        </div>
         <button>Register</button>
     </form>
 </body>
