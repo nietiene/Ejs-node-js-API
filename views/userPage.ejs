@@ -15,8 +15,8 @@
           <% user.forEach((u) => { %>
              <li class="border border-green-400 rounded p-4 bg-white text-green-900">
               <p><span class="font-bold text-green-600">Id:<%= u.id %></span></p> 
-               <span class="font-bold text-green-600">Name: <%= u.name %></span>
-               <span class="font-bold text-green-600">Password: <%= u.password %></span>
+               <p><span class="font-bold text-green-600">Name: <%= u.name %></span></p>
+               <p><span class="font-bold text-green-600">Password: <%= u.password %></span></p>
                <div class="mt-4 space-x-4">
                  <a href="/update/<%= u.id %>" class="bg-green-400 text-white px-4 py-2 rounded hover:bg-green-600">Edit Your Account </a> 
                  <a href="/dlt/<%= u.id %>"  onclick="return confirm('Are You Sure You Want to delete your account??')"  class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-600">Delete</a> 
