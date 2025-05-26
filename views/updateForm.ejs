@@ -9,8 +9,10 @@
 <body class="max-h-screen flex items-center justify-center bg-green-100">
     <h2  class="text-2x; font-bold text-center text-green-600 mb-6">Update User <%= user.name %></h2>
     <form action="/edit/<%= user.id %>" method="post" class="bg-green-200 p-8 rounded-lg w-full max-w-md shadow-lg">
-        <label for="">Id</label>
-        <input type="text" name="id" value="<%= user.id %>" disabled><br>
+        <div class="mb-4">
+           <label class="block text-green-800 mb-1">Id</label>
+           <input type="text" name="id" value="<%= user.id %>" disabled><br>
+        </div>
         <label for="">Name</label>
         <input type="text" name="name" value="<%= user.name %>"><br>
         <label for="">Password</label>
