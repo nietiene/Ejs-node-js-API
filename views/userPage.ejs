@@ -9,14 +9,16 @@
 <body class="max-h-screen text-white bg-green-600 justify-center items-center">
   <div class="bg-green-200 text-green-900 p-6 rounded-lg shadow-lg w-full max-w-md">
     <div class="flex justify-end mb-4">
-      <a href="/logout" >Logout</a>
-         <ul >
+      <a href="/logout" class="bg-red-400 text-white px-4 py-2 rounded hover:bg-red-600">Logout</a>
+         <ul class="space-y-6">
           <% user.forEach((u) => { %>
-             <li>Id:</strong><%= u.id %></li>
-             <li>Name: <%= u.name %></li>
-             <li>Password: <%= u.password %></li>
-             <a href="/update/<%= u.id %>" class="bg-green-400 py-4 px-1">Edit Your Account </a> |
-             <a href="/dlt/<%= u.id %>"  onclick="return confirm('Are You Sure You Want to delete your account??')">Delete</a> 
+             <li class="border border-green-400 rounded p-4 bg-white text-green-900">Id:</strong><%= u.id %></li>
+               <span class="font-bold text-green-600">Name: <%= u.name %></span>
+               <span class="font-bold text-green-600">Password: <%= u.password %></span>
+               <a href="/update/<%= u.id %>" class="bg-green-400 py-4 px-1">Edit Your Account </a> |
+               <a href="/dlt/<%= u.id %>"  onclick="return confirm('Are You Sure You Want to delete your account??')">Delete</a> 
+            </li>
+            
         <% }) %>
     </ul>
   
